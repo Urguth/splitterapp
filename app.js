@@ -3,6 +3,7 @@ const app = express();
 const tinyreq = require('tinyreq');
 const fs = require('fs');
 const jsdom = require('jsdom');
+const request = require('request');
 const main = require('./app_content/js/main.js');
 const splitter = require('./app_content/js/splitter.js');
 

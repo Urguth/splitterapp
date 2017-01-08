@@ -29,16 +29,19 @@ main.prototype = {
   },
   parseHtml: function (el) {
     for (var i = 0, length = el.length; i < length; ++i) {
-      var nazev = el[i].getElementsByTagName('a')[0].getElementsByTagName('span')[0].textContent;
+      var isds = el[i].getElementsByTagName('a')[0].href;
+      isds = isds.substr(isds.length-7,isds.length);
+      var nazev = el[i].getElementsByTagName('a')[0].getElementsByClassName('preWrap')[0].innerHTML.split('&#034;').join(""); 
       var ic = el[i].textContent.substr(el[i].textContent.indexOf("IČ") + 3, 8).replace(/^\s+|\s+$/g, "");
-      var adress = this.Splitter.splitAdress(el[i].innerHTML.replace(/^\s+|\s+$/g, ""), [], {});
-      var newAdress1 = adress.adress1.split("<br>").join("");
+      var adress = this.Splitter.splitAdress(el[i].innerHTML.replace(/^\s+|\s+$/g, ""), [], {})
+      var adress1Reverse = adress.adress1.split("").reverse().join("");
+      adress.adress1 =  adress.adress1.substr(adress.adress1.length-adress1Reverse.indexOf("   "), adress.adress1.length)
       this.jsonArr.push({
-        "isds": "tfiew8",
+        "isds": isds,
         "post": true,
         "nazev": nazev,
         "ic": ic,
-        "adresa": newAdress1.split("\n").join(""),
+        "adresa": adress.adress1.split("\n").join(""),
         "adresa2": adress.adress2.split("\n").join(""),
         "adresa3": adress.adress3.split("\n").join(""),
         "PSC": adress.PSC.split("\n").join(""),
@@ -47,8 +50,8 @@ main.prototype = {
     this.init();
   },
   loadSite: function () {
-    this.url = this.clientUrl + String(Number(this.count * this.pageTabs) + 1) + ".html";
-    this.req(this.clientUrl, (err, body, res) => {
+    var url = this.clientUrl + String(Number(this.count * this.pageTabs) + 1);
+    this.req(url, (err, body, res) => {
       if (err && res.statusCode !== 200) console.log(err);
       this.jsdom.env({
         html: body,
