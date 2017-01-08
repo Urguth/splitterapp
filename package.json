@@ -1,0 +1,29 @@
+{
+  "name": "splitterapp",
+  "version": "0.0.1",
+  "description": "Split html table tag to JSON.",
+  "engines": {
+    "node": "^6.9.1"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "ejs": "^2.4.1",
+    "express": "^4.13.3",
+    "tinyreq": "^3.2.0",
+    "jsdom": "^9.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Urguth/splitterapp.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "autor": "INIBA",
+  "license": "MIT"
+}
